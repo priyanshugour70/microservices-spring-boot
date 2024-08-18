@@ -1,12 +1,7 @@
 package com.gour.priyanshu.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.gour.priyanshu.entity.Book;
 
@@ -69,6 +64,35 @@ public class BookRestController {
     )
     {
         return ResponseEntity.ok("Data given is " + book);
+    }
+
+    /*
+     * METHOD : PUT
+     * PATH   : /showE
+     * R.T    : ResponseEntity<String>
+     * INPUT  : @RequestBody Book
+     */
+    @PutMapping("/showE")
+    public ResponseEntity<String> showMgs5(
+            @RequestBody Book book
+    )
+    {
+        return ResponseEntity.ok("Data FROM PUT is " + book);
+    }
+
+
+    /*
+     * METHOD : DELETE
+     * PATH   : /showF
+     * R.T    : ResponseEntity<String>
+     * INPUT  : id(@PathVariable)
+     */
+    @DeleteMapping("/showF/{id}")
+    public ResponseEntity<String> showMsg6(
+            @PathVariable  Integer id
+    )
+    {
+        return ResponseEntity.ok("DELETE MAPPING " + id);
     }
 
 
