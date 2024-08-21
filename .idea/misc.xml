@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/01-microservice-rest-templete/springconsumer-app/pom.xml" />
         <option value="$PROJECT_DIR$/01-microservice-rest-templete/springprovider-app/pom.xml" />
+        <option value="$PROJECT_DIR$/02-spring-rest-backend-api/pom.xml" />
       </list>
     </option>
   </component>
