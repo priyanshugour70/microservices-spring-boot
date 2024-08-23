@@ -1,8 +1,16 @@
 package com.gour.priyanshu.restcontroller;
 
+import com.gour.priyanshu.exception.ErrorResponse;
 import com.gour.priyanshu.exception.StudentNotFoundException;
 import com.gour.priyanshu.model.Student;
 import com.gour.priyanshu.service.IStudentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +40,26 @@ public class StudentRestController {
      * R.T    : ResponseEntity<String>
      *
      */
+    @Operation(summary = "Save the Student Object")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "201", description = "CREATED A RESOURCE AT PROVIDER",
+                            content = {
+                                    @Content(mediaType = "text/plain")
+                            }
+                    ),
+                    @ApiResponse(responseCode = "400", description = "BAD REQUEST",
+                            content =
+                                    {
+                                            @Content(mediaType ="application/json")
+                                    }
+                    )
+            }
+    )
     @PostMapping("/create")
     public ResponseEntity<String> createStudent(
-            @RequestBody Student student
+            @RequestBody @Valid Student student
     )
     {
         Integer id = service.saveStudent(student);
@@ -53,6 +78,23 @@ public class StudentRestController {
      * R.T    : ResponseEntity<List<Student>>
      *
      */
+    @Operation(summary = "Find all Student")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200", description = "SUCCESS",
+                            content = {
+                                    @Content(mediaType = "application/json" ,
+                                            array =
+                                            @ArraySchema(
+                                                    schema = @Schema(implementation = Student.class)
+                                            )
+                                    )
+
+                            }
+                    )
+            }
+    )
     @GetMapping("/all")
     public ResponseEntity<List<Student>> getAllStudents() {
 
@@ -69,6 +111,23 @@ public class StudentRestController {
      * R.T    : ResponseEntity<Student>
      *
      */
+    @Operation(summary = "Find a Student by its id")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200", description = "SUCCESS",
+                            content = {
+                                    @Content(mediaType = "application/json" , schema = @Schema(implementation =Student.class))
+                            }
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Student not found",
+                            content =
+                                    {
+                                            @Content(mediaType ="application/json", schema = @Schema(implementation = ErrorResponse.class))
+                                    }
+                    )
+            }
+    )
     @GetMapping("/find/{id}")
     public ResponseEntity<Student> getOneStudent(
             @PathVariable Integer id
@@ -92,6 +151,23 @@ public class StudentRestController {
      * R.T    : ResponseEntity<String>
      *
      */
+    @Operation(summary = "Delete a Student by its id")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200", description = "SUCCESS",
+                            content = {
+                                    @Content(mediaType = "plain/text")
+                            }
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Student not found",
+                            content =
+                                    {
+                                            @Content(mediaType ="application/json", schema = @Schema(implementation =ErrorResponse.class))
+                                    }
+                    )
+            }
+    )
     @DeleteMapping("/remove/{id}")
     public ResponseEntity<String> deleteStudent(
             @PathVariable Integer id
@@ -115,9 +191,26 @@ public class StudentRestController {
      * R.T    : ResponseEntity<String>
      *
      */
+    @Operation(summary = "Update Student object")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(
+                            responseCode = "200", description = "SUCCESS",
+                            content = {
+                                    @Content(mediaType = "plain/text")
+                            }
+                    ),
+                    @ApiResponse(responseCode = "404", description = "Student not found",
+                            content =
+                                    {
+                                            @Content(mediaType ="application/json", schema = @Schema(implementation =ErrorResponse.class))
+                                    }
+                    )
+            }
+    )
     @PutMapping("/modify")
     public ResponseEntity<String> updateStudent(
-            @RequestBody Student student
+            @RequestBody @Valid Student student
     )
     {
         ResponseEntity<String> response = null;
