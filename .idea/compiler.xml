@@ -7,15 +7,20 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="springprovider-app" />
+        <module name="03-junit-with-mockito" />
         <module name="02-spring-rest-backend-api" />
+        <module name="springprovider-app" />
         <module name="springconsumer-app" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="02-spring-rest-backend-api (1)" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="02-spring-rest-backend-api" options="-parameters" />
+      <module name="02-spring-rest-backend-api (1)" options="-parameters" />
       <module name="springconsumer-app" options="-parameters" />
       <module name="springprovider-app" options="-parameters" />
     </option>
